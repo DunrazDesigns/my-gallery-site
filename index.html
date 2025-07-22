@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dylan's Travel Gallery</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .gallery-item {
+      flex: 0 1 calc(33.333% - 40px);
+      box-sizing: border-box;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* Tablet (2 per row) */
+    @media (max-width: 768px) {
+      .gallery-item {
+        flex: 0 1 calc(50% - 40px);
+      }
+    }
+
+    /* Mobile (1 per row) */
+    @media (max-width: 480px) {
+      .gallery-item {
+        flex: 0 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Dylan's Travel Gallery</h1>
+
+  <div class="gallery">
+    <div class="gallery-item"><img src="images/image1.jpg" alt="Image 1" /></div>
+    <div class="gallery-item"><img src="images/image2.jpg" alt="Image 2" /></div>
+    <div class="gallery-item"><img src="images/image3.jpg" alt="Image 3" /></div>
+    <div class="gallery-item"><img src="images/image4.jpg" alt="Image 4" /></div>
+    <div class="gallery-item"><img src="images/image5.jpg" alt="Image 5" /></div>
+    <div class="gallery-item"><img src="images/image6.jpg" alt="Image 6" /></div>
+    <div class="gallery-item"><img src="images/image7.jpg" alt="Image 7" /></div>
+    <div class="gallery-item"><img src="images/image8.jpg" alt="Image 8" /></div>
+    <div class="gallery-item"><img src="images/image9.jpg" alt="Image 9" /></div>
+  </div>
+
+</body>
+</html>
