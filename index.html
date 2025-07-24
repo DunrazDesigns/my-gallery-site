@@ -35,17 +35,14 @@
       border-radius: 8px;
     }
 
-    /* Wide image aligned left */
     .horizontal-left {
       grid-column: span 2;
     }
 
-    /* Wide image aligned right */
     .horizontal-right {
       grid-column: 2 / span 2;
     }
 
-    /* Responsive: 2 columns on tablets */
     @media (max-width: 768px) {
       .gallery {
         grid-template-columns: repeat(2, 1fr);
@@ -57,7 +54,6 @@
       }
     }
 
-    /* Responsive: 1 column on mobile */
     @media (max-width: 480px) {
       .gallery {
         grid-template-columns: 1fr;
