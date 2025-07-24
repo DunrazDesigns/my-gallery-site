@@ -131,20 +131,16 @@
 
     galleries.forEach((gallery) => {
       const images = gallery.querySelectorAll("img");
-      if (images.length > 0) {
-        // Always make the first image in each gallery span 2 columns left
-        const firstItem = images[0].closest(".gallery-item");
-        firstItem.classList.add("horizontal-left");
-      }
-
       let toggleLeftRight = true;
 
       images.forEach((img, index) => {
         img.onload = () => {
           const isLandscape = img.naturalWidth > img.naturalHeight;
-          // Skip the first image (already manually styled)
-          if (isLandscape && index !== 0) {
-            const container = img.closest(".gallery-item");
+          const container = img.closest(".gallery-item");
+
+          if (index === 0 && isLandscape) {
+            container.classList.add("horizontal-left");
+          } else if (isLandscape) {
             container.classList.add(toggleLeftRight ? "horizontal-left" : "horizontal-right");
             toggleLeftRight = !toggleLeftRight;
           }
@@ -153,6 +149,7 @@
     });
   });
 </script>
+
 </body>
 </html>
 
