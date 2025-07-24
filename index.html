@@ -4,48 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dylan's Travel Gallery</title>
-
   <style>
     body {
       font-family: sans-serif;
       background-color: #f0f0f0;
       padding: 20px;
-      text-align: center;
+      margin: 0;
     }
 
     h1 {
-      font-size: 2.5em;
+      text-align: center;
       margin-bottom: 30px;
     }
 
     .gallery {
-      column-count: 3;
-      column-gap: 15px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
     }
 
     .gallery-item {
-      break-inside: avoid;
-      margin-bottom: 15px;
+      overflow: hidden;
+      border-radius: 8px;
     }
 
     .gallery-item img {
       width: 100%;
       height: auto;
-      border-radius: 8px;
       display: block;
+      border-radius: 8px;
     }
 
-    /* Tablet */
-    @media (max-width: 900px) {
+    /* Wide image aligned left */
+    .horizontal-left {
+      grid-column: span 2;
+    }
+
+    /* Wide image aligned right */
+    .horizontal-right {
+      grid-column: 2 / span 2;
+    }
+
+    /* Responsive: 2 columns on tablets */
+    @media (max-width: 768px) {
       .gallery {
-        column-count: 2;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .horizontal-left,
+      .horizontal-right {
+        grid-column: span 2;
       }
     }
 
-    /* Mobile */
-    @media (max-width: 600px) {
+    /* Responsive: 1 column on mobile */
+    @media (max-width: 480px) {
       .gallery {
-        column-count: 1;
+        grid-template-columns: 1fr;
+      }
+
+      .horizontal-left,
+      .horizontal-right {
+        grid-column: span 1;
       }
     }
   </style>
@@ -55,7 +75,7 @@
   <h1>Dylan's Travel Gallery</h1>
 
   <div class="gallery">
-    <div class="gallery-item"><img src="images/landscape.jpg" alt="Image 1" /></div>
+    <div class="gallery-item"><img src="images/image1.jpg" alt="Image 1" /></div>
     <div class="gallery-item"><img src="images/image2.jpg" alt="Image 2" /></div>
     <div class="gallery-item"><img src="images/image3.jpg" alt="Image 3" /></div>
     <div class="gallery-item"><img src="images/image4.jpg" alt="Image 4" /></div>
@@ -66,5 +86,22 @@
     <div class="gallery-item"><img src="images/image9.jpg" alt="Image 9" /></div>
   </div>
 
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const galleryItems = document.querySelectorAll(".gallery-item img");
+      let toggleLeftRight = true;
+
+      galleryItems.forEach((img) => {
+        img.onload = () => {
+          const isLandscape = img.naturalWidth > img.naturalHeight;
+          if (isLandscape) {
+            const container = img.closest(".gallery-item");
+            container.classList.add(toggleLeftRight ? "horizontal-left" : "horizontal-right");
+            toggleLeftRight = !toggleLeftRight;
+          }
+        };
+      });
+    });
+  </script>
 </body>
 </html>
