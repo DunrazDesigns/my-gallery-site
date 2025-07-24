@@ -20,7 +20,7 @@
     .gallery {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 400px; /* ✅ Fix #1: consistent height for rows */
+      grid-auto-rows: 400px; /* base row height */
       gap: 15px;
     }
 
@@ -31,23 +31,20 @@
 
     .gallery-item img {
       width: 100%;
-      height: 100%;            /* ✅ Fix #2: fill entire grid cell */
-      object-fit: cover;       /* ✅ Fix #2: crop to fit without distortion */
+      height: 100%;
+      object-fit: cover;
       display: block;
       border-radius: 8px;
     }
 
-    /* Wide image aligned left */
     .horizontal-left {
       grid-column: span 2;
     }
 
-    /* Wide image aligned right */
     .horizontal-right {
       grid-column: 2 / span 2;
     }
 
-    /* Responsive: 2 columns on tablets */
     @media (max-width: 768px) {
       .gallery {
         grid-template-columns: repeat(2, 1fr);
@@ -59,7 +56,6 @@
       }
     }
 
-    /* Responsive: 1 column on mobile */
     @media (max-width: 480px) {
       .gallery {
         grid-template-columns: 1fr;
@@ -72,7 +68,6 @@
     }
   </style>
 </head>
-
 <body>
   <h1>Dylan's Travel Gallery</h1>
 
@@ -90,14 +85,18 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
+      const rowHeight = 400 + 15; // 400px + 15px gap
       const galleryItems = document.querySelectorAll(".gallery-item img");
       let toggleLeftRight = true;
 
-      galleryItems.forEach((img) => {
+      galleryItems.forEach(img => {
         img.onload = () => {
+          const container = img.closest(".gallery-item");
           const isLandscape = img.naturalWidth > img.naturalHeight;
+
           if (isLandscape) {
-            const container = img.closest(".gallery-item");
+            const span = Math.ceil(img.naturalHeight * (container.offsetWidth / img.naturalWidth) / rowHeight);
+            container.style.gridRowEnd = `span ${span}`;
             container.classList.add(toggleLeftRight ? "horizontal-left" : "horizontal-right");
             toggleLeftRight = !toggleLeftRight;
           }
@@ -107,3 +106,4 @@
   </script>
 </body>
 </html>
+
